@@ -27,9 +27,12 @@ class PostList(APIView):
             return Response(deserialized.data, status=status.HTTP_201_CREATED)
         return Response(deserialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class PostDetail(APIView):
-    def get():
-        ...
+class PostDetail(APIView): #posts/{id}
+    def get(self, request, id, format = None):
+        onePost = Post.objects.get(pk = id)
+        serialized = PostSerializer(onePost)
+        return Response(serialized.data, status=status.HTTP_200_OK)
+
     def put():
         ...
     def delete():
